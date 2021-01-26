@@ -1,3 +1,10 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :surveys, only: %i(index new edit)
+  root 'surveys#index'
+
+  namespace :api do
+    namespace :v1 do
+      resources :surveys, only: %i(index)
+    end
+  end
 end
