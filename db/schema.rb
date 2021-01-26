@@ -18,10 +18,8 @@ ActiveRecord::Schema.define(version: 2021_01_13_145217) do
   create_table "answers", force: :cascade do |t|
     t.string "title", null: false
     t.string "description", null: false
-    t.bigint "survey_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["survey_id"], name: "index_answers_on_survey_id"
   end
 
   create_table "answers_posts", force: :cascade do |t|
@@ -36,10 +34,12 @@ ActiveRecord::Schema.define(version: 2021_01_13_145217) do
   create_table "options", force: :cascade do |t|
     t.string "title", null: false
     t.integer "weight", null: false
+    t.bigint "question_id", null: false
     t.bigint "answer_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["answer_id"], name: "index_options_on_answer_id"
+    t.index ["question_id"], name: "index_options_on_question_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -47,6 +47,14 @@ ActiveRecord::Schema.define(version: 2021_01_13_145217) do
     t.text "content", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.string "title", null: false
+    t.bigint "survey_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["survey_id"], name: "index_questions_on_survey_id"
   end
 
   create_table "surveys", force: :cascade do |t|

@@ -3,4 +3,5 @@ class Option < ApplicationRecord
   validates :weight, presence: true
 
   belongs_to :answer
+  belongs_to :question
 end

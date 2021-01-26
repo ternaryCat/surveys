@@ -1,8 +1,9 @@
 class Answer < ApplicationRecord
   validates :title, presence: true
+  validates :description, presence: true
 
-  belongs_to :survey
   has_many :options, dependent: :nullify
   has_many :answers_posts, dependent: :destroy
+  has_many :questions, through: :options
   has_many :posts, through: :answers_posts
 end
