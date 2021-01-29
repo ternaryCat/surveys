@@ -1,9 +1,9 @@
 module Surveys
   class Create < BaseService
     option :title
-    option :questions
-    option :answers
-    option :options
+    option :answers_params
+    option :questions_params
+    option :options_params
 
     def call
       survey = Survey.new title: title
@@ -13,18 +13,14 @@ module Surveys
       return nil unless valid? survey, answers, questions, options
 
       survey.save
-      save_collection answers
-      save_collection questions
-      save_collection options
+      answers.each(&:save)
+      questions.each(&:save)
+      options.each(&:save)
 
       survey
     end
 
     private
-
-    def save_collection(collection)
-      collection.each(&:save)
-    end
 
     def valid?(survey, answers, questions, options)
       survey.valid? && valid_collection?(answers) && valid_collection?(questions) && valid_collection?(options)
@@ -37,15 +33,15 @@ module Surveys
     end
 
     def initialized_answers
-      answers.map { |answer_params| Answer.new answer_params }
+      answers_params.map { |answer_params| Answer.new answer_params }
     end
 
     def initialized_questions(survey)
-      questions.map { |question_params| Question.new question_params.merge(survey: survey) }
+      questions_params.map { |question_params| Question.new question_params.merge(survey: survey) }
     end
 
     def initialized_options(answers, questions)
-      options.map do |option_data|
+      options_params.map do |option_data|
         option_params = option_data.slice(:title, :weight).merge(
           answer: answers[option_data[:answer_index]],
           question: questions[option_data[:question_index]]
