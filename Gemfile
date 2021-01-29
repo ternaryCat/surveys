@@ -12,6 +12,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'dotenv-rails'
 gem 'strong_migrations'
 gem 'jsonapi-serializer'
+gem 'dry-initializer'
 
 # gem 'redis', '~> 4.0'
 # gem 'bcrypt', '~> 3.1.7'
