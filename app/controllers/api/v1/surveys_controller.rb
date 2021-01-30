@@ -5,6 +5,10 @@ module Api
         render json: { surveys: SurveyShortSerializer.new(Survey.all) }
       end
 
+      def show
+        render json: { survey: SurveySerializer.new(survey) }
+      end
+
       def create
         survey = Surveys::Create.call survey_params.to_h
         return render(json: {}, status: :bad_request) unless survey
