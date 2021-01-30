@@ -1,0 +1,4 @@
+123
+<% @surveys.each do |survey| %>
+  <%= link_to survey.id, survey_path(survey) %>
+<% end %>
