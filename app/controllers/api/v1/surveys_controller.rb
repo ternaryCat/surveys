@@ -27,6 +27,12 @@ module Api
         render json: { message: t('surveys.errors.missing_key') }, status: :bad_request
       end
 
+      def destroy
+        survey.destroy
+
+        render json: {}, status: :ok
+      end
+
       private
 
       def survey
