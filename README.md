@@ -1,24 +1,94 @@
-# README
+# Surveys
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Api
+### Surveys list
+#### Path
+```http
+  GET /api/v1/surveys
+```
 
-Things you may want to cover:
+### Create survey
+#### Path
+```http
+  POTS /api/v1/surveys
+```
 
-* Ruby version
+#### Params
+```javascript
+{
+  answers: [
+    {
+      title: string
+      description: string
+    }
+  ]
+  questions: [
+    {
+      title: string
+    }
+  ]
+  options: [
+    {
+      title: string
+      weight: float
+      answer_index: int //0..answers.length - 1
+      question_index: int //0..question.length - 1
+    }
+  ]
+}
+```
 
-* System dependencies
+### Edit survey
+#### Path
+```http
+  PUT/PUTCH /api/v1/surveys/:id
+```
 
-* Configuration
+#### Params
+```javascript
+{
+  answers: [
+    {
+      title: string
+      description: string
+    }
+    {
+      id[optional]: int
+      title: string
+      description: string
+    }
+  ]
+  questions: [
+    {
+      title: string
+    }
+    {
+      id: int
+      title: string
+    }
+  ]
+  options: [
+    {
+      title: string
+      weight: float
+      answer_index: int //0..answers.length - 1
+      question_index: int //0..question.length - 1
+    }
+    {
+      id[optional]: int
+      title: string
+      weight: float
+      answer_id[optional]: int
+      question_id[optional]: int
+      answer_index[optional]: int //0..answers.length - 1
+      question_index[optional]: int //0..question.length - 1
+    }
+  ]
+}
+```
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Delete survey
+#### Path
+```http
+  DELETE /api/v1/surveys/:id
+```
